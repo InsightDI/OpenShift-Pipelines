@@ -28,7 +28,7 @@ node('maven') {
     echo "New Tag: ${newTag}"
     sh "oc project ${ocdevnamespace}"
     sh "oc start-build ${appname} --follow --from-file=./target/person-${version}.jar -n ${ocdevnamespace}"
-   	sh "oc tag ${ocdevnamespace}/${appname}:latest ${ocdevnamespace}/person-service:latest:${newTag}"	
+   	sh "oc tag ${ocdevnamespace}/${appname}:latest ${ocdevnamespace}/person-service:${newTag}"	
 
     //openshiftTag alias: 'false', destStream: appname, destTag: newTag, destinationNamespace: ocdevnamespace, namespace: ocdevnamespace, srcStream: appname, srcTag: 'latest', verbose: 'false'
   }   
