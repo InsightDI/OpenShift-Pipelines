@@ -34,7 +34,7 @@ node('maven') {
   stage ('Deploy to Dev'){
     sh "oc patch dc ${appname} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocdevnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocdevnamespace}"
 	sh "oc rollout latest dc/${appname}"
-    verifyDeployment namespace:ocdevnamespace, dcName:appname, verbose:true
+    verifyDeployment namespace:ocdevnamespace, dc:appname, verbose:true
   }
   
 }
