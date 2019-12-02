@@ -34,6 +34,7 @@ node('maven') {
   stage ('Deploy to Dev'){
     sh "oc patch dc ${appname} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocdevnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocdevnamespace}"
 	sh "oc rollout latest dc/${appname}"
+    verifyDeployment namespace:ocdevnamespace, dcName:appname, verbose:true
   }
   
 }
@@ -42,4 +43,37 @@ node('maven') {
 def getBuildVersion(){
     def pom = readMavenPom  file: "pom.xml"
     return  pom.getVersion()
+}
+
+def verifyDeployment(Map config){
+	def namespace = config.namespace
+    def dcName = config.dc
+	def verbose = config.verbose ?: false
+
+	echo "Verifying deployment for ${namespace}"
+	sh "oc project ${namespace}"
+
+	// Get the dc and pull the latest version
+	def dcStr = sh script:"oc get dc ${dcName} -o yaml", returnStdout:true
+	def dcYaml = readYaml text:dcStr
+	def latestVersion = dcYaml.status.latestVersion
+
+	// Limit the checking of replica counts to 10 minutes.  Can't wait forever.
+	timeout(time: 10, unit: 'MINUTES'){
+		waitUntil{
+			// Get the replication controller for the last build
+			def rcStr = sh script:"oc get rc ${dcName}-${dcYaml.status.latestVersion} -o yaml", returnStdout:true
+			def rcYaml = readYaml text:rcStr
+			def replicas = rcYaml.status.replicas
+			def readyReplicas = rcYaml.status.readyReplicas
+			if (verbose){
+				echo "Replicas: ${replicas} Ready Replicas: ${readyReplicas}"
+			}
+			// Check replica counts
+			if (replicas != null && readyReplicas != null && replicas.equals(readyReplicas)){
+				return true
+			}
+			return false
+		}
+	}
 }
