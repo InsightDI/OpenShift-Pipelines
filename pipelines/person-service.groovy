@@ -14,6 +14,7 @@ node('maven') {
   }
   
   def version=getBuildVersion()
+  def newTag = "PersonService-${version}:${BUILD_NUMBER}"
   stage('Build artifact') {
     echo "Building version ${version}"
 	sh "mvn clean package -DskipTests"
