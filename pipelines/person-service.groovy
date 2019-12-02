@@ -27,9 +27,8 @@ node('maven') {
   stage('Build OpenShift Image') {
     echo "New Tag: ${newTag}"
     sh "oc project ${ocdevnamespace}"
-    input 'stop'
-    sh "oc start-build ${appname} --follow --from-file=./target/ROOT.war -n ${ocdevnamespace}"
-    openshiftTag alias: 'false', destStream: appname, destTag: newTag, destinationNamespace: ocdevnamespace, namespace: ocdevnamespace, srcStream: appname, srcTag: 'latest', verbose: 'false'
+    sh "oc start-build ${appname} --follow --from-file=./target/person-${version}.jar -n ${ocdevnamespace}"
+    //openshiftTag alias: 'false', destStream: appname, destTag: newTag, destinationNamespace: ocdevnamespace, namespace: ocdevnamespace, srcStream: appname, srcTag: 'latest', verbose: 'false'
   }   
   
 }
