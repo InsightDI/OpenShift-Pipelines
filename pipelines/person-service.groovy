@@ -3,8 +3,8 @@
 node('maven') {
 
   def ocdevnamespace = "ecu-person-dev"
-  def ocqanamespace = "person-service-qa"
-  def appname = "person-service";
+  def ocqanamespace = "ecu-person-qa"
+  def appname = "ecu-person-prod";
 
   def mvnCmd = "mvn"
 
@@ -14,7 +14,7 @@ node('maven') {
   }
   
   def version=getBuildVersion()
-  def newTag = "PersonService-${version}:${BUILD_NUMBER}"
+  def newTag = "v${version}:${BUILD_NUMBER}"
   stage('Build artifact') {
     echo "Building version ${version}"
 	sh "mvn clean package -DskipTests"
@@ -28,6 +28,8 @@ node('maven') {
     echo "New Tag: ${newTag}"
     sh "oc project ${ocdevnamespace}"
     sh "oc start-build ${appname} --follow --from-file=./target/person-${version}.jar -n ${ocdevnamespace}"
+   	sh "oc tag ${ocdevnamespace}/person-service:latest ${ocdevnamespace}/person-service:latest:${newTag}"	
+
     //openshiftTag alias: 'false', destStream: appname, destTag: newTag, destinationNamespace: ocdevnamespace, namespace: ocdevnamespace, srcStream: appname, srcTag: 'latest', verbose: 'false'
   }   
   
