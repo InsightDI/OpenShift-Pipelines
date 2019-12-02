@@ -14,7 +14,7 @@ node('maven') {
   }
   
   def version=getBuildVersion()
-  def newTag = "v${version}:${BUILD_NUMBER}"
+  def newTag = "v${version}-${BUILD_NUMBER}"
   stage('Build artifact') {
     echo "Building version ${version}"
 	sh "mvn clean package -DskipTests"
