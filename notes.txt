@@ -1,0 +1,3 @@
+oc policy add-role-to-user edit system:serviceaccount:ecu-jenkins:jenkins -n ecu-person-dev
+
+oc policy add-role-to-group system:image-puller system:serviceaccounts:ecu-person-qa -n ecu-person-dev

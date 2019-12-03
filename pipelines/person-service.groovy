@@ -42,8 +42,11 @@ node('maven') {
   }
 
   stage ('Deploy to QA'){
-      input "Deploy version ${newTag} to QA?"
-      
+    input "Deploy version ${newTag} to QA?"
+    sh "oc project ${ocqanamespace}"
+    sh "oc patch dc ${appname} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocdevnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocqanamespace}"
+	sh "oc rollout latest dc/${appname}"
+    verifyDeployment namespace:ocqanamespace, dc:appname, verbose:true
   }
 }
 
