@@ -37,6 +37,14 @@ node('maven') {
     verifyDeployment namespace:ocdevnamespace, dc:appname, verbose:true
   }
   
+  stage ('Integration Tests'){
+    echo 'Run integration tests'
+  }
+
+  stage ('Deploy to QA'){
+      input "Deploy version ${newTag} to QA?"
+      
+  }
 }
 
 
