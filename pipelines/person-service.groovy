@@ -22,7 +22,7 @@ node('maven') {
 
   stage('Checkout Source') {
     echo "Checking out source"
-    checkout([$class: 'GitSCM', branches: [[name: branchName]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: sourceURL]])
+    checkout([$class: 'GitSCM', branches: [[name: branchName]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: sourceURL]]])
   }
   
   def version=getBuildVersion()
