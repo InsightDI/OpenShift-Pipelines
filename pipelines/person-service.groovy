@@ -83,7 +83,7 @@ node('maven') {
 
   stage ('Deploy to Prod'){
     input "Deploy version ${newTag} to ${dest}?"
-    sh "oc project ${ocqanamespace}"
+    sh "oc project ${ocprodnamespace}"
    	sh "oc tag ${ocdevnamespace}/${appname}:${newTag} ${ocprodnamespace}/${appname}:${newTag}"	
     sh "oc patch dc ${dest} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocprodnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocprodnamespace}"
 	  sh "oc rollout latest dc/${dest}"
