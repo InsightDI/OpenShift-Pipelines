@@ -70,7 +70,6 @@ node('maven') {
 
   stage('Prepare Blue/Green Switch') {
     sh "oc project ${ocprodnamespace}"
-    sh "oc get route ${appname} -n ${ocprodnamespace} -o jsonpath='{ .spec.to.name }' > activesvc.txt"
   	active = sh(returnStdout: true, script: "oc get route ${appname} -n ${ocprodnamespace} -o jsonpath='{ .spec.to.name }'")
 
     if (active == "${appname}-green") {
@@ -88,6 +87,14 @@ node('maven') {
     sh "oc patch dc ${dest} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${dest}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocprodnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocprodnamespace}"
 	  sh "oc rollout latest dc/${dest}"
     verifyDeployment namespace:ocprodnamespace, dc:dest, verbose:true
+  }  
+
+  stage('Switch over to new Version') {
+    input "Switch Route to Production?"
+
+    sh "oc patch route ${appname} -n ${ocprodnamespace} -p '{\"spec\":{\"to\":{\"name\":\"" + dest + "\"}}}'"    
+    newRoute = sh (returnStdout: true, script:"oc get route ${appname} -n ${ocprodnamespace}")
+    echo "Current route configuration: " + newRoute
   }  
 }
 
