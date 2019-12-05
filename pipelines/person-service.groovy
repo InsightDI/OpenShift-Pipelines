@@ -16,6 +16,7 @@ node('maven') {
   
   def ocdevnamespace = "ecu-person-dev"
   def ocqanamespace = "ecu-person-qa"
+  def ocprodnamespace = "ecu-person-prod"
   def appname = "person-service";
 
   def mvnCmd = "mvn"
