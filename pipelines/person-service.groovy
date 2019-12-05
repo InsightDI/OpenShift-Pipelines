@@ -91,8 +91,7 @@ node('maven') {
 
   stage('Switch over to new Version') {
     input "Switch Route to Production (${dest})?"
-
-    sh "oc patch route ${appname} -n ${ocprodnamespace} -p '{\"spec\":{\"to\":{\"name\":\"" + dest + "\"}}}'"    
+		sh "oc patch route ${appname} --patch '{\"spec\": {\"port\": {\"targetPort\": \"${dest}\"}, \"to\":{\"name\": \"${dest}\"}}}'" 
     newRoute = sh (returnStdout: true, script:"oc get route ${appname} -n ${ocprodnamespace}")
     echo "Current route configuration: " + newRoute
   }  
