@@ -28,9 +28,9 @@ node('maven') {
   
   def version=getBuildVersion()
   def newTag = "v${version}-${BUILD_NUMBER}"
-  stage('Build artifact') {
+  stage('Build Artifact') {
     echo "Building version ${version}"
-	sh "mvn clean package -DskipTests"
+	  sh "mvn clean package -DskipTests"
   }
   
   stage ('Run Unit Tests'){
@@ -90,7 +90,7 @@ node('maven') {
   }  
 
   stage('Switch over to new Version') {
-    input "Switch Route to Production?"
+    input "Switch Route to Production (${dest})?"
 
     sh "oc patch route ${appname} -n ${ocprodnamespace} -p '{\"spec\":{\"to\":{\"name\":\"" + dest + "\"}}}'"    
     newRoute = sh (returnStdout: true, script:"oc get route ${appname} -n ${ocprodnamespace}")
