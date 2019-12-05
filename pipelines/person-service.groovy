@@ -4,6 +4,15 @@ node('maven') {
 
 
   echo 'payload=' + payload
+  def pld  = readJSON text: payload
+  def ref = pld.ref
+  def branchName = pld.ref
+  def afterCommit = pld.after
+  def sourceURL = pld.repository.clone_url
+
+  def gitAuthorName = pld.pusher.name
+  def gitAuthorEmail = pld.pusher.email
+
   
   def ocdevnamespace = "ecu-person-dev"
   def ocqanamespace = "ecu-person-qa"
@@ -13,7 +22,7 @@ node('maven') {
 
   stage('Checkout Source') {
     echo "Checking out source"
-    checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/InsightDI/GCDJavaReference.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: branchName]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: sourceURL]])
   }
   
   def version=getBuildVersion()
