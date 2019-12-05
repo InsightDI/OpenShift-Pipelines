@@ -58,9 +58,36 @@ node('maven') {
     sh "oc project ${ocqanamespace}"
    	sh "oc tag ${ocdevnamespace}/${appname}:${newTag} ${ocqanamespace}/${appname}:${newTag}"	
     sh "oc patch dc ${appname} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocqanamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocqanamespace}"
-	sh "oc rollout latest dc/${appname}"
+	  sh "oc rollout latest dc/${appname}"
     verifyDeployment namespace:ocqanamespace, dc:appname, verbose:true
   }
+
+  // Blue/Green Deployment into Production
+  // -------------------------------------
+  def dest   = "${appname}-green"
+  def active = ""
+
+  stage('Prepare Blue/Green Switch') {
+    sh "oc project ${ocprodnamespace}"
+    sh "oc get route ${appname} -n ${ocprodnamespace} -o jsonpath='{ .spec.to.name }' > activesvc.txt"
+  	active = sh(returnStdout: true, script: "oc get route ${appname} -n ${ocprodnamespace} -o jsonpath='{ .spec.to.name }'")
+
+    if (active == "${appname}-green") {
+      dest = "${appname}-blue"
+    }
+
+    echo "Active svc: " + active
+    echo "Dest svc:   " + dest
+  }  
+
+  stage ('Deploy to Prod'){
+    input "Deploy version ${newTag} to ${dest}?"
+    sh "oc project ${ocqanamespace}"
+   	sh "oc tag ${ocdevnamespace}/${appname}:${newTag} ${ocprodnamespace}/${appname}:${newTag}"	
+    sh "oc patch dc ${dest} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocprodnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocprodnamespace}"
+	  sh "oc rollout latest dc/${dest}"
+    verifyDeployment namespace:ocprodnamespace, dc:dest, verbose:true
+  }  
 }
 
 
