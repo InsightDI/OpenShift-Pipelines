@@ -87,7 +87,7 @@ objects:
           livenessProbe:
             failureThreshold: 3
             httpGet:
-              path: /health/
+              path: /actuator/health/
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 60
@@ -97,13 +97,20 @@ objects:
           readinessProbe:
             failureThreshold: 3
             httpGet:
-              path: /health/
+              path: /actuator/health/
               port: 8080
               scheme: HTTP
             initialDelaySeconds: 60
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
         dnsPolicy: ClusterFirst
