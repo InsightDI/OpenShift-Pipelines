@@ -2,6 +2,9 @@
 
 node('maven') {
 
+
+  echo 'payload=' + payload
+  
   def ocdevnamespace = "ecu-person-dev"
   def ocqanamespace = "ecu-person-qa"
   def appname = "person-service";
