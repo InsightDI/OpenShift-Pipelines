@@ -40,6 +40,10 @@ public class PersonService {
         person.setFirstName("Dan");
         person.setLastName("Putt");
         people.add(person);
+        person = new Person();
+        person.setFirstName("Susan");
+        person.setLastName("Smith");
+        people.add(person);
 
         return people;
     }
