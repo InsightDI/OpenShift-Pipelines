@@ -85,13 +85,13 @@ node('maven') {
     sh "oc project ${ocprodnamespace}"
    	sh "oc tag ${ocdevnamespace}/${appname}:${newTag} ${ocprodnamespace}/${appname}:${newTag}"	
     sh "oc patch dc ${dest} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${dest}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocprodnamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocprodnamespace}"
-	  sh "oc rollout latest dc/${dest}"
+	sh "oc rollout latest dc/${dest}"
     verifyDeployment namespace:ocprodnamespace, dc:dest, verbose:true
   }  
 
   stage('Switch over to new Version') {
     input "Switch Route to Production (${dest})?"
-		sh "oc patch route ${appname} --patch '{\"spec\": {\"port\": {\"targetPort\": \"${dest}\"}, \"to\":{\"name\": \"${dest}\"}}}'" 
+	sh "oc patch route ${appname} --patch '{\"spec\": {\"port\": {\"targetPort\": \"${dest}\"}, \"to\":{\"name\": \"${dest}\"}}}'"
     newRoute = sh (returnStdout: true, script:"oc get route ${appname} -n ${ocprodnamespace}")
     echo "Current route configuration: " + newRoute
   }  
