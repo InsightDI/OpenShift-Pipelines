@@ -41,26 +41,14 @@ public class PersonService {
         person.setLastName("Putt");
         people.add(person);
 
+        person = new Person();
+        person.setFirstName("Susan");
+        person.setLastName("Jones");
+        people.add(person);
+
         return people;
     }
 
-    @RequestMapping("/chain")
-    public List<Person> chain(){
-        List<Person> mine = new ArrayList<Person>();
-        Person person = new Person();
-        person.setLastName("Morgan");
-        person.setFirstName("Aaron");
-        mine.add(person);
-
-        RestTemplate template = new RestTemplate();
-
-        ResponseEntity<Person[]> response = template.getForEntity(chainUrl, Person[].class);
-        Person[] theirs = response.getBody();
-        System.out.println(theirs.length);
-
-        mine.addAll(Arrays.asList(theirs));
-        return mine;
-    }
 
     @RequestMapping("/")
     public String health(){
