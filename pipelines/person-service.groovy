@@ -5,13 +5,8 @@ node('maven') {
 
   echo 'payload=' + payload
   def pld  = readJSON text: payload
-  def ref = pld.ref
   def branchName = pld.ref
-  def afterCommit = pld.after
   def sourceURL = pld.repository.clone_url
-
-  def gitAuthorName = pld.pusher.name
-  def gitAuthorEmail = pld.pusher.email
 
   
   def ocdevnamespace = "ecu-person-dev"
@@ -30,11 +25,11 @@ node('maven') {
   def newTag = "v${version}-${BUILD_NUMBER}"
   stage('Build Artifact') {
     echo "Building version ${version}"
-	  sh "mvn clean package -DskipTests"
+    sh "${mvnCmd} clean package -DskipTests"
   }
   
   stage ('Run Unit Tests'){
-    sh "mvn test"
+    sh "${mvnCmd} test"
   }
   
   stage('Build OpenShift Image') {
@@ -59,7 +54,7 @@ node('maven') {
     sh "oc project ${ocqanamespace}"
    	sh "oc tag ${ocdevnamespace}/${appname}:${newTag} ${ocqanamespace}/${appname}:${newTag}"	
     sh "oc patch dc ${appname} --patch '{\"spec\": { \"triggers\": [ { \"type\": \"ImageChange\", \"imageChangeParams\": { \"containerNames\": [ \"${appname}\" ], \"from\": { \"kind\": \"ImageStreamTag\", \"namespace\": \"${ocqanamespace}\", \"name\": \"$appname:$newTag\"}}}]}}' -n ${ocqanamespace}"
-	  sh "oc rollout latest dc/${appname}"
+	sh "oc rollout latest dc/${appname}"
     verifyDeployment namespace:ocqanamespace, dc:appname, verbose:true
   }
 
