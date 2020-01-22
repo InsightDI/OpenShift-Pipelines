@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="8e2e54a5-ec15-448e-a31b-e03c84258509" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pipelines/person-service.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/pipelines/person-service.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/insightdi/person/services/PersonService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/insightdi/person/services/PersonService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -19,29 +18,29 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
+            <state relative-caret-position="480">
+              <caret line="43" column="2" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/notes.txt">
+        <entry file="file://$PROJECT_DIR$/templates/oc_template.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="32" selection-start-line="2" selection-start-column="32" selection-end-line="2" selection-end-column="32" />
+            <state relative-caret-position="15">
+              <caret line="34" column="46" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="46" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pipelines/person-service.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="31" column="23" lean-forward="true" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+            <state relative-caret-position="645">
+              <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -54,8 +53,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java" />
         <option value="$PROJECT_DIR$/pipelines/person-service.groovy" />
+        <option value="$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java" />
       </list>
     </option>
   </component>
@@ -71,10 +70,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="107" />
-    <option name="y" value="23" />
-    <option name="width" value="2199" />
-    <option name="height" value="1266" />
+    <option name="x" value="7" />
+    <option name="y" value="39" />
+    <option name="width" value="1424" />
+    <option name="height" value="818" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -136,6 +135,11 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="person" type="b2602c69:ProjectViewProjectNode" />
+              <item name="OpenShift-Pipelines" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -190,7 +194,8 @@
       <workItem from="1576500261864" duration="526000" />
       <workItem from="1577952390639" duration="1139000" />
       <workItem from="1579010645331" duration="1450000" />
-      <workItem from="1579545619295" duration="846000" />
+      <workItem from="1579545619295" duration="2557000" />
+      <workItem from="1579691215715" duration="624000" />
     </task>
     <task id="LOCAL-00001" summary="Removed susan">
       <created>1578077723483</created>
@@ -203,13 +208,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6026000" />
+    <option name="totallyTimeSpent" value="8361000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="107" y="23" width="2199" height="1266" extended-state="0" />
+    <frame x="57" y="23" width="2249" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15855354" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1563208" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -226,7 +231,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
       <window_info anchor="bottom" id="Spring" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.15672913" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.1566879" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" />
@@ -236,7 +241,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.13351877" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.13049388" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Google Cloud Storage" order="5" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="6" />
@@ -254,13 +259,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Removed susan" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="37" column="27" selection-start-line="37" selection-start-column="27" selection-end-line="37" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/notes.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -270,8 +268,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pipelines/person-service.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="31" column="23" lean-forward="true" selection-start-line="31" selection-start-column="23" selection-end-line="31" selection-end-column="23" />
+        <state relative-caret-position="645">
+          <caret line="43" column="18" selection-start-line="43" selection-start-column="18" selection-end-line="43" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/oc_template.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="34" column="46" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/insightdi/person/services/PersonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="43" column="2" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
         </state>
       </provider>
     </entry>

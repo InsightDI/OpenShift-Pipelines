@@ -33,18 +33,15 @@ public class PersonService {
         person.setLastName("Morgan");
         people.add(person);
         person = new Person();
-        person.setFirstName("Dan");
-        person.setLastName("Lange");
+        person.setFirstName("Holly");
+        person.setLastName("Leyda");
         people.add(person);
         person = new Person();
-        person.setFirstName("Dan");
-        person.setLastName("Putt");
+        person.setFirstName("Molly");
+        person.setLastName("Harper");
         people.add(person);
 
-        person = new Person();
-        person.setFirstName("Susan");
-        person.setLastName("Jones");
-        people.add(person);
+
 
         return people;
     }
